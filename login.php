@@ -1,3 +1,4 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 
@@ -11,16 +12,22 @@
 
 <body>
     <div id="login">
-        <form action="">
+        <form action="validarLogin.php" method="POST">
             <img src="./assets/logo.png" alt="logo" />
-            <label for="">Nome:</label>
-            <input type="text" />
+            <?php if (isset($_SESSION['msg'])) { ?>
+                <tr><td colspan="2" style="color: red;">
+                <?php echo $_SESSION['msg']; ?></td></tr>
+                <?php
+                    session_destroy();
+            } ?>
+            <label for="">E-mail:</label>
+            <input type="text" name="email"/>
             <label for="">Senha:</label>
-            <input type="password" />
+            <input type="password" name="senha"/>
             <button type="submit">Entrar</button>
             <div id="extras">
                 <p>Não possuí conta ainda?</p>
-                <a href="./cadastro.html">Clique aqui.</a>
+                <a href="cadastro.php">Clique aqui.</a>
             </div>
         </form>
     </div>
