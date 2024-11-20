@@ -20,12 +20,12 @@ body {
     border: 1px solid #ccc;
     border-radius: 20px;
     background-color: #fff;
+    display: flex;
 }
 
 form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
 }
 
 label {
@@ -39,9 +39,10 @@ input {
     color: #000;
     background-color: #eeeeee;
     padding: 20px;
-    width: 100%;
+    width: 400px;
     height: 50px;
     border-radius: 35px;
+    margin: auto;
     margin-bottom: 20px;
     font-size: 20px;
     outline: none;
@@ -89,4 +90,10 @@ a {
 
 a:visited {
     color: #2f3f2e;
+}
+
+#extras {
+    display: flex;
+    margin: auto;
+    margin-top: 20px;
 }
