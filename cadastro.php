@@ -32,7 +32,7 @@ if (isset($_POST['nome'])) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./login.css" />
+    <link rel="stylesheet" href="./styles/login.css" />
     <link rel="icon" href="./assets/image 1.png" />
     <title>Cadastro</title>
 </head>

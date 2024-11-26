@@ -1,15 +1,17 @@
-<!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Project/PHP/PHPProject.php to edit this template
--->
 <html>
     <head>
         <meta charset="UTF-8">
-        <title></title>
+        <title>UniBooks</title>
+        <link rel="stylesheet" href="./styles/inicio.css" />
+        <link rel="icon" href="./assets/image 1.png" />
     </head>
     <body>
-        <a href="login.php">login</a>
-        <a href="cadastro.php">cadastro</a>
+        <div>
+            <div class="lateral">
+                <img src="./assets/logo.png" alt="alt"/>
+                <button><a href="login.php">Login</a></button>
+                <button><a href="cadastro.php">Cadastro</a></button>
+            </div>
+        </div>
     </body>
 </html>
