@@ -17,6 +17,8 @@ if (isset($_POST['email'])) {
 
         if ($user != null && $user->validaUsuarioSenha($email, $senha)) {
             $_SESSION['user'] = $user;
+            header("Location: feed_teste.php");
+            exit;
         } else {
             $_SESSION['msg'] = "email ou senha incorretos";
             header("Location: login.php");
@@ -29,19 +31,3 @@ if (isset($_POST['email'])) {
     }
 }
 ?>
-
-<!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Project/PHP/PHPProject.php to edit this template
--->
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title></title>
-    </head>
-    <body>
-        <?php echo 'ola ' . $dados['nome'] . '! <br>'; ?>
-        <a href="logout.php"> Sair </a>
-    </body>
-</html>

@@ -4,7 +4,7 @@ include './usuario.php';
 session_start();
 
 if (isset($_POST['nome'])) {
-    if (!empty($_POST['nome'])) {
+    if (!empty($_POST['nome']) && !empty($_POST['email']) && !empty($_POST['senha']) && !empty($_POST['senha_confirm'])) {
         if ($_POST['senha'] == $_POST['senha_confirm']){
             $consulta_email = mysqli_query($conexao, "select email from usuario where email = '" . $_POST['email'] . "'");
             $validar_email = mysqli_fetch_assoc($consulta_email);
@@ -21,7 +21,7 @@ if (isset($_POST['nome'])) {
             $_SESSION['msg'] = 'senhas diferentes';
         }
     } else {
-        $_SESSION['msg'] = 'digite um nome';
+        $_SESSION['msg'] = 'preencha todos os campos';
     }
 }
 ?>
@@ -32,7 +32,7 @@ if (isset($_POST['nome'])) {
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./styles/login.css" />
+    <link rel="stylesheet" href="./login.css" />
     <link rel="icon" href="./assets/image 1.png" />
     <title>Cadastro</title>
 </head>

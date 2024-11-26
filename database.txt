@@ -1,0 +1,47 @@
+drop database unibooks;
+
+create database unibooks;
+
+use unibooks;
+
+create table usuario(
+idUsuario integer primary key auto_increment,
+nome varchar(50),
+email varchar(30),
+senha varchar(20));
+
+create table obra(
+idObra integer primary key auto_increment,
+titulo varchar(50),
+idApi varchar(50));
+
+create table leitura(
+idLeitura integer primary key auto_increment,
+idObra integer,
+idUsuario integer,
+situacao varchar (20),
+foreign key (idObra) references obra(idObra),
+foreign key (idUsuario) references usuario(idUsuario));
+
+create table avaliacao(
+idAvaliacao integer primary key auto_increment,
+idObra integer,
+idUsuario integer,
+nota integer,
+foreign key (idObra) references obra(idObra),
+foreign key (idUsuario) references usuario(idUsuario));
+
+create table comentario(
+idComentario integer primary key auto_increment,
+comentario varchar(280),
+idAvaliacao integer,
+data date,
+foreign key (idAvaliacao) references avaliacao(idAvaliacao));
+
+create table feed(
+idFeed integer primary key auto_increment,
+tipo varchar(10),
+idLeitura integer,
+idAvaliacao integer,
+foreign key (idLeitura) references leitura(idLeitura),
+foreign key (idAvaliacao) references avaliacao(idAvaliacao));
