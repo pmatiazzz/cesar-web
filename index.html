@@ -4,25 +4,42 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/principal.css" />
+    <link rel="icon" href="./assets/image 1.png" />
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <title>Menu Principal</title>
 </head>
 
 <body>
-    <div class="esquerda">
+    <div class="lateral">
         <img src="./assets/logo.png" alt="logo" />
         <table>
             <ul>
                 <li>
-                    <a href="./index.html">Principal</a>
+                    <div class="item" id="principal">
+                        <a href="./index.html">
+                            <ion-icon name="person-outline"></ion-icon>Principal</a>
+                    </div>
                 </li>
                 <li>
-                    <a href="#">Leituras</a>
+                    <div class="item">
+                        <a href="#">
+                            <ion-icon name="bookmark-outline"></ion-icon>Leituras</a>
+                    </div>
                 </li>
                 <li>
-                    <a href="#">Avaliações</a>
+                    <div class="item">
+                        <a href="#">
+                            <ion-icon name="star-outline"></ion-icon>Avaliações</a>
+                    </div>
                 </li>
             </ul>
         </table>
+        <div id="sair">
+            <a href="#">
+                <ion-icon name="exit-outline"></ion-icon>Sair</a>
+        </div>
     </div>
 </body>
 
