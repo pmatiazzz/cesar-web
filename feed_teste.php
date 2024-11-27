@@ -94,6 +94,7 @@ session_start();
                     if ($capa) {
                         echo "<img src='" . $capa, ENT_QUOTES . "' alt='Capa do livro' style='width: 150px; height: auto;'>";
                     }
+                    
                     echo "</div>";
                 }
                 
