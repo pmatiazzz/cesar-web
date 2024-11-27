@@ -15,8 +15,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Project/PHP/PHPProject.php to edi
         <title></title>
     </head>
     <body>
+        <a href="perfil.php"><?php echo $_SESSION['user']->getNome();?></a>
         <?php
-            echo $_SESSION['user']->getNome();
             $consulta_feed = mysqli_query($conexao, "SELECT * FROM feed ORDER BY idFeed DESC;");
             $consulta_avaliacao = mysqli_query($conexao, "SELECT * FROM avaliacao;");
             while ($feed = mysqli_fetch_assoc($consulta_feed)) {
@@ -56,6 +56,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Project/PHP/PHPProject.php to edi
                 }
             }
         ?>
-        <a href="pesquisa.php">adicionar</a>
+        <a href="pesquisaAdicionar.php">adicionar</a>
+        <a href="pesquisaAvaliar.php">avaliar</a>
     </body>
 </html>
