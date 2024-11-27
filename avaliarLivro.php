@@ -67,7 +67,7 @@ session_start();
         ?>
         
         <form action="/uniBooks/salvarAvaliacao.php/?idLivro=<?php echo $_GET['livro']?> " method="POST">
-            <label>situação:</label>
+            <label>Nota:</label>
             <select name="nota">
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -75,6 +75,7 @@ session_start();
                 <option value="4">4</option>
                 <option value="5">5</option>
             </select>
+            <textarea name="desc_avali" id="" rows="4" cols="50"></textarea>
             <button type="submit">avaliar</button>
         </form>
     </body>

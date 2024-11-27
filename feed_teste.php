@@ -5,18 +5,57 @@ session_start();
 ?>
 
 <!DOCTYPE html>
-<!--
-Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-Click nbfs://nbhost/SystemFileSystem/Templates/Project/PHP/PHPProject.php to edit this template
--->
 <html>
-    <head>
-        <meta charset="UTF-8">
-        <title></title>
-    </head>
-    <body>
-        <a href="perfil.php"><?php echo $_SESSION['user']->getNome();?></a>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./styles/principal.css" />
+    <link rel="icon" href="./assets/image1.png" />
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <title>Principal</title>
+</head>
+
+<body>
+    <div class="lateral">
+        <img src="./assets/logo.png" alt="logo" />
+        <table>
+            <ul>
+                <li>
+                    <div class="item" id="principal">
+                        <a href="./index.html">
+                            <ion-icon name="home-outline"></ion-icon>Principal</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="item">
+                        <a href="pesquisaAdicionar.php">
+                            <ion-icon name="bookmark-outline"></ion-icon>Leituras</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="item">
+                        <a href="pesquisaAvaliar.php">
+                            <ion-icon name="star-outline"></ion-icon>Avaliações</a>
+                    </div>
+                </li>
+                <li>
+                    <div class="item">
+                        <a href="./perfil.php">
+                            <ion-icon name="analytics-outline"></ion-icon>Atividade</a>
+                    </div>
+                </li>
+            </ul>
+        </table>
+        <div id="sair">
+            <a href="logout.php">
+                <ion-icon name="exit-outline"></ion-icon>Sair</a>
+        </div>
+    </div>
+
+    
         <?php
+        echo "<div id=feed>";
             $consulta_feed = mysqli_query($conexao, "SELECT * FROM feed ORDER BY idFeed DESC;");
             $consulta_avaliacao = mysqli_query($conexao, "SELECT * FROM avaliacao;");
             while ($feed = mysqli_fetch_assoc($consulta_feed)) {
@@ -29,10 +68,32 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Project/PHP/PHPProject.php to edi
                     $usuario = mysqli_fetch_assoc($consulta_usuario);
                     $consulta_obra = mysqli_query($conexao, "SELECT * FROM obra WHERE idObra = " . $leitura['idObra'] . ";");
                     $obra = mysqli_fetch_assoc($consulta_obra);
+                    $idApi = $obra['idApi'];
+                    // URL da API com o ID do livro
+                    $apiUrl = "https://www.googleapis.com/books/v1/volumes/" . urlencode($idApi);
+                    // Inicializando o cURL
+                    $curl = curl_init();
+                    // Configurando o cURL
+                    curl_setopt($curl, CURLOPT_URL, $apiUrl);
+                    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                    // Executando a requisição
+                    $response = curl_exec($curl);
+                    // Verificando erros
+                    if ($response === false) {
+                        die('Erro na requisição: ' . curl_error($curl));
+                    }
+                    // Fechando o cURL
+                    curl_close($curl);
+                    // Decodificando a resposta JSON
+                    $livro = json_decode($response, true);
+                    
+                    $capa = $livro['volumeInfo']['imageLinks']['thumbnail'];
                     
                     echo "<div class='feed-item'>";
-                    echo "<h2>" . $feed['idFeed'] . "</h2>";
-                    echo "<p>" . $usuario['nome'] . ' ' . $leitura['situacao'] . ' o livro ' . $obra['titulo'] . "</p>";
+                    echo "<p><strong>" . $usuario['nome'] . '</strong> ' . $leitura['situacao'] . ' o livro <strong>' . $obra['titulo'] . ".</strong></p>";
+                    if ($capa) {
+                        echo "<img src='" . $capa, ENT_QUOTES . "' alt='Capa do livro' style='width: 150px; height: auto;'>";
+                    }
                     echo "</div>";
                 }
                 
@@ -43,10 +104,34 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Project/PHP/PHPProject.php to edi
                     $usuario = mysqli_fetch_assoc($consulta_usuario);
                     $consulta_obra = mysqli_query($conexao, "SELECT * FROM obra WHERE idObra = " . $avaliacao['idObra'] . ";");
                     $obra = mysqli_fetch_assoc($consulta_obra);
+                    $idApi = $obra['idApi'];
+                    // URL da API com o ID do livro
+                    $apiUrl = "https://www.googleapis.com/books/v1/volumes/" . urlencode($idApi);
+                    // Inicializando o cURL
+                    $curl = curl_init();
+                    // Configurando o cURL
+                    curl_setopt($curl, CURLOPT_URL, $apiUrl);
+                    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                    // Executando a requisição
+                    $response = curl_exec($curl);
+                    // Verificando erros
+                    if ($response === false) {
+                        die('Erro na requisição: ' . curl_error($curl));
+                    }
+                    // Fechando o cURL
+                    curl_close($curl);
+                    // Decodificando a resposta JSON
+                    $livro = json_decode($response, true);
+                    
+                    $capa = $livro['volumeInfo']['imageLinks']['thumbnail'];
+                    $nota = intval($avaliacao['nota']); // Convertendo nota para inteiro
+                    $emojis = str_repeat('⭐', $nota); // Repete a estrela conforme a nota
                     
                     echo "<div class='feed-item'>";
-                    echo "<h2>" . $feed['idFeed'] . "</h2>";
-                    echo "<p>" . $usuario['nome'] . ' avaliou o livro ' . $obra['titulo'] . ' com ' . $avaliacao['nota'] . ' estrelas.' ."</p>";
+                    echo "<p><strong>" . $usuario['nome'] . '</strong> avaliou o livro <strong>' . $obra['titulo'] . '</strong> com <strong>' . $avaliacao['nota'] . ' estrelas' . $emojis . ".</strong></p>";
+                    if ($capa) {
+                        echo "<img src='" . $capa, ENT_QUOTES . "' alt='Capa do livro' style='width: 150px; height: auto;'>";
+                    }
                     
                     $consulta_comentario = mysqli_query($conexao, "SELECT * FROM comentario WHERE idAvaliacao = " . $feed['idAvaliacao'] . " ORDER BY idComentario DESC;");
                     while ($comentario = mysqli_fetch_assoc($consulta_comentario)){
@@ -55,8 +140,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Project/PHP/PHPProject.php to edi
                     echo "</div>";
                 }
             }
+            echo "</div>";
         ?>
         <a href="pesquisaAdicionar.php">adicionar</a>
         <a href="pesquisaAvaliar.php">avaliar</a>
-    </body>
+
+</body>
 </html>
