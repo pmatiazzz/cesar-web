@@ -1,7 +1,7 @@
 <?php 
 include_once './database.php';
 include_once './usuario.php';
-session_start();
+session_start(); 
 
 if (isset($_GET['leitura'])){
     $consulta_feed = mysqli_query($conexao, "DELETE FROM feed WHERE idLeitura = " . $_GET['leitura'] . ";");

@@ -1,7 +1,7 @@
 <?php 
 include_once './database.php';
 include_once './usuario.php';
-session_start();
+session_start(); 
 ?>
 
 <html>
