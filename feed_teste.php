@@ -32,7 +32,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Project/PHP/PHPProject.php to edi
                     
                     echo "<div class='feed-item'>";
                     echo "<h2>" . $feed['idFeed'] . "</h2>";
-                    echo "<p>" . $usuario['nome'] . ' leu o livro ' . $obra['titulo'] . "</p>";
+                    echo "<p>" . $usuario['nome'] . ' ' . $leitura['situacao'] . ' o livro ' . $obra['titulo'] . "</p>";
                     echo "</div>";
                 }
                 
@@ -56,5 +56,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Project/PHP/PHPProject.php to edi
                 }
             }
         ?>
+        <a href="pesquisa.php">adicionar</a>
     </body>
 </html>

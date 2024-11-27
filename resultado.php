@@ -1,4 +1,8 @@
 <?php
+include_once './database.php';
+include_once './usuario.php';
+session_start();
+
 // Endpoint da API do Google Books
 $query = $_POST['livro']; // Termo de pesquisa
 $apiUrl = "https://www.googleapis.com/books/v1/volumes?q=" . urlencode($query);
