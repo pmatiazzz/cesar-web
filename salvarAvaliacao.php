@@ -35,26 +35,26 @@ if (isset($_GET['idLivro'])) {
 
     // Decodificando a resposta JSON
     $livro = json_decode($response, true);
-    
+
     if (!empty($livro['volumeInfo'])) {
         $titulo = $livro['volumeInfo']['title'];
-        
+
         $consultaLivroExistente = mysqli_query($conexao, "SELECT idObra FROM obra WHERE idApi = '" . $idLivro . "';");
         $livroExistente = mysqli_fetch_assoc($consultaLivroExistente);
-        if (empty($livroExistente['idObra'])){
+        if (empty($livroExistente['idObra'])) {
             //salva obra no database
             $consultaObra = mysqli_query($conexao, "insert into obra(titulo, idApi) values ('" . $titulo . "','" . $idLivro . "')");
             //pega o id da ultima incersão
             $idObra = $conexao->insert_id;
-            
+
             //salva leitura no database
             $consultaAvaliacao = mysqli_query($conexao, "insert into avaliacao(idObra, idUsuario, nota) values ('" . $idObra . "','" . $idUsuario . "'," . $nota . ")");
             $idAvaliacao = $conexao->insert_id;
 
             $consultaFeed = mysqli_query($conexao, "insert into feed(tipo, idAvaliacao) values ('avaliacao','" . $idAvaliacao . "')");
-            
-            $consultaComentario = mysqli_query($conexao, "insert into comentario(comentario, idAvaliacao, data) values ('avaliacao','" . $idAvaliacao . "', CURDATE())");
-            
+
+            $consultaComentario = mysqli_query($conexao, "insert into comentario(comentario, idAvaliacao, data) values ('" . $comentario . "','" . $idAvaliacao . "', CURDATE())");
+
         } else {
             $idObra = $livroExistente['idObra'];
             //salva leitura no database
@@ -62,16 +62,16 @@ if (isset($_GET['idLivro'])) {
             $idAvaliacao = $conexao->insert_id;
 
             $consultaFeed = mysqli_query($conexao, "insert into feed(tipo, idAvaliacao) values ('avaliacao','" . $idAvaliacao . "')");
-            
+
             $consultaComentario = mysqli_query($conexao, "insert into comentario(comentario, idAvaliacao, data) values ('" . $comentario . "','" . $idAvaliacao . "', CURDATE())");
-            
+
         }
-        
+
         //envia para tala de pesquisa
         header("Location: http://localhost/uniBooks/feed_teste.php");
         exit;
-    } 
-    
+    }
+
 } else {
     echo "Erro. Livro não encontrado.";
 }
