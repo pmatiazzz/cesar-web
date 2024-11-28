@@ -23,19 +23,19 @@ session_start();
             <ul>
                 <li>
                     <div class="item" id="principal">
-                        <a href="./index.html">
+                        <a href="./feed_teste.php">
                             <ion-icon name="home-outline"></ion-icon>Principal</a>
                     </div>
                 </li>
                 <li>
                     <div class="item">
-                        <a href="pesquisaAdicionar.php">
+                        <a href="./pesquisaAdicionar.php">
                             <ion-icon name="bookmark-outline"></ion-icon>Leituras</a>
                     </div>
                 </li>
                 <li>
                     <div class="item">
-                        <a href="pesquisaAvaliar.php">
+                        <a href="./pesquisaAvaliar.php">
                             <ion-icon name="star-outline"></ion-icon>Avaliações</a>
                     </div>
                 </li>
@@ -91,9 +91,9 @@ session_start();
         if (!empty($data['items'])) {
             foreach ($data['items'] as $livro) {
                 $titulo = $livro['volumeInfo']['title'];
-                $descricao = isset($livro['volumeInfo']['description']) ? $livro['volumeInfo']['description'] : 'Descrição não disponivel';
-                $autores = isset($livro['volumeInfo']['authors']) ? implode(', ', $livro['volumeInfo']['authors']) : 'Autor(es) não disponível';
-                $capa = $livro['volumeInfo']['imageLinks']['thumbnail']; // URL da imagem de capa
+                $descricao = $livro['volumeInfo']['description'] ?? 'Descrição não disponivel';
+                $autores = implode(', ', $livro['volumeInfo']['authors']);
+                $capa = $livro['volumeInfo']['imageLinks']['thumbnail'] ?? './assets/placeholder.png'; // URL da imagem de capa
     
                 echo "<div class='book-item'>";
 

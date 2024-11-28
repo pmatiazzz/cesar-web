@@ -22,7 +22,7 @@ session_start();
             <ul>
                 <li>
                     <div class="item" id="principal">
-                        <a href="./index.html">
+                        <a href="./feed_teste.php">
                             <ion-icon name="home-outline"></ion-icon>Principal</a>
                     </div>
                 </li>
@@ -88,10 +88,10 @@ session_start();
         if (!empty($data['items'])) {
             foreach ($data['items'] as $livro) {
                 $titulo = $livro['volumeInfo']['title'];
-                $descricao = isset($livro['volumeInfo']['description']) ? $livro['volumeInfo']['description'] : 'Descrição não disponivel';
+                $descricao = $livro['volumeInfo']['description'] ?? 'Descrição não disponivel';
                 $autores = isset($livro['volumeInfo']['authors']) ? implode(', ', $livro['volumeInfo']['authors']) : 'Autor(es) não disponível';
-                $capa = $livro['volumeInfo']['imageLinks']['thumbnail']; // URL da imagem de capa
-    
+                $capa = $livro['volumeInfo']['imageLinks']['thumbnail'] ?? './assets/placeholder.png';
+
                 echo "<div class='book-item'>";
 
                 // Exibindo a capa do livro

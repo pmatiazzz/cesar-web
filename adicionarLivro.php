@@ -53,6 +53,7 @@ session_start();
         </div>
     </div>
     <?php
+    echo "<div id='addLivro'>";
     if (isset($_GET['livro'])) {
         $idLivro = $_GET['livro'];
 
@@ -84,10 +85,10 @@ session_start();
         if (!empty($livro['volumeInfo'])) {
             $titulo = $livro['volumeInfo']['title'];
             $autores = implode(', ', $livro['volumeInfo']['authors']);
-            $descricao = $livro['volumeInfo']['description'];
+            $descricao = $livro['volumeInfo']['description'] ?? 'Descrição não disponivel';
             $editora = $livro['volumeInfo']['publisher'];
             $dataPublicacao = $livro['volumeInfo']['publishedDate'];
-            $capa = $livro['volumeInfo']['imageLinks']['thumbnail'];
+            $capa = $livro['volumeInfo']['imageLinks']['thumbnail'] ?? './../assets/placeholder.png';
 
             // Exibindo os detalhes do livro
             echo "<h1>$titulo</h1>";
@@ -109,13 +110,14 @@ session_start();
     ?>
 
     <form action="/uniBooks/salvarLeitura.php/?idLivro=<?php echo $_GET['livro'] ?> " method="POST">
-        <label>situação:</label>
+        <label>Situação:</label>
         <select name="situacao">
             <option value="esta lendo">Lendo</option>
             <option value="leu">Lido</option>
         </select>
-        <button type="submit">salvar</button>
+        <button type="submit">Salvar</button>
     </form>
+    </div>
 </body>
 
 </html>

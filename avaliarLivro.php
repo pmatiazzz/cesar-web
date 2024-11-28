@@ -83,10 +83,10 @@ session_start();
         if (!empty($livro['volumeInfo'])) {
             $titulo = $livro['volumeInfo']['title'];
             $autores = implode(', ', $livro['volumeInfo']['authors']);
-            $descricao = $livro['volumeInfo']['description'];
+            $descricao = $livro['volumeInfo']['description'] ?? 'Descrição não disponivel';
             $editora = $livro['volumeInfo']['publisher'];
             $dataPublicacao = $livro['volumeInfo']['publishedDate'];
-            $capa = $livro['volumeInfo']['imageLinks']['thumbnail'];
+            $capa = $livro['volumeInfo']['imageLinks']['thumbnail'] ?? './../assets/placeholder.png';
 
 
         } else {
