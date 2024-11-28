@@ -9,8 +9,8 @@
         <div>
             <div class="lateral">
                 <img src="./assets/logo.png" alt="alt"/>
-                <a href="login.php"><button>Login</button></a>
-                <a href="cadastro.php"><button>Cadastro</button></a>
+                <button><a href="login.php">Login</a></button>
+                <button><a href="cadastro.php">Cadastro</a></button>
             </div>
         </div>
     </body>

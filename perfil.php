@@ -113,7 +113,7 @@ session_start();
                     echo "<img src='" . $capa, ENT_QUOTES . "' alt='Capa do livro' style='width: 150px; height: auto;'>";
                 }
                 
-                echo "<a href=avaliarLivro.php/?livro=" . $idLivro . "><button>avaliar</button></a>";
+                echo "<a href=editar_avaliacao.php/?avaliacao=" . $avaliacoes['idAvaliacao'] . "><button>editar</button></a>";
             }
         }
     ?>

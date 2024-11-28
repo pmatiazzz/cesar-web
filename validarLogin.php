@@ -20,7 +20,6 @@ if (isset($_POST['email'])) {
             header("Location: feed_teste.php");
             exit;
         } else {
-            
             $_SESSION['msg'] = "email ou senha incorretos";
             header("Location: login.php");
             exit;
