@@ -1,7 +1,7 @@
 <?php 
 include_once './database.php';
 include_once './usuario.php';
-session_start();
+session_start(); 
 ?>
 
 <html>
@@ -11,8 +11,14 @@ session_start();
     </head>
     <body>
         <?php
-        if (isset($_GET['livro'])) {
-            $idLivro = $_GET['livro'];
+        if (isset($_GET['leitura'])) {
+            $idLeitura = $_GET['leitura'];
+            $consulta_leitura = mysqli_query($conexao, "SELECT idObra FROM leitura WHERE idLeitura = " . $idLeitura . ";");
+            $leitura = mysqli_fetch_assoc($consulta_leitura);
+            $consulta_obra = mysqli_query($conexao, "SELECT idApi FROM obra WHERE idObra = " . $leitura['idObra'] . ";");
+            $obra = mysqli_fetch_assoc($consulta_obra);
+            
+            $idLivro = $obra['idApi'];
 
             // URL da API com o ID do livro
             $apiUrl = "https://www.googleapis.com/books/v1/volumes/" . urlencode($idLivro);
@@ -66,17 +72,14 @@ session_start();
         }
         ?>
         
-        <form action="/uniBooks/salvarAvaliacao.php/?idLivro=<?php echo $_GET['livro']?> " method="POST">
-            <label>Nota:</label>
-            <select name="nota">
-                <option value="1">1</option>
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
-                <option value="5">5</option>
+        <form action="/uniBooks/editandoLeitura.php/?leitura=<?php echo $_GET['leitura']?> " method="POST">
+            <label>situação:</label>
+            <select name="situacao">
+                <option value="esta lendo">Lendo</option>
+                <option value="leu">Lido</option>
             </select>
-            <textarea name="comentario" id="" rows="4" cols="50"></textarea>
-            <button type="submit">avaliar</button>
+            <button type="submit">editar</button>
         </form>
+        <a href="http://localhost/uniBooks/excluir_leitura.php/?leitura=<?php echo $_GET['leitura'];?>"><button>excluir</button></a>
     </body>
 </html>

@@ -5,6 +5,7 @@ session_start();
 
 $idLivro = $_GET['idLivro'];
 $nota = $_POST['nota'];
+$comentario = $_POST['comentario'];
 
 $idUsuario = $_SESSION['user']->getCod();
 
@@ -52,6 +53,8 @@ if (isset($_GET['idLivro'])) {
 
             $consultaFeed = mysqli_query($conexao, "insert into feed(tipo, idAvaliacao) values ('avaliacao','" . $idAvaliacao . "')");
             
+            $consultaComentario = mysqli_query($conexao, "insert into comentario(comentario, idAvaliacao, data) values ('avaliacao','" . $idAvaliacao . "', CURDATE())");
+            
         } else {
             $idObra = $livroExistente['idObra'];
             //salva leitura no database
@@ -59,6 +62,8 @@ if (isset($_GET['idLivro'])) {
             $idAvaliacao = $conexao->insert_id;
 
             $consultaFeed = mysqli_query($conexao, "insert into feed(tipo, idAvaliacao) values ('avaliacao','" . $idAvaliacao . "')");
+            
+            $consultaComentario = mysqli_query($conexao, "insert into comentario(comentario, idAvaliacao, data) values ('" . $comentario . "','" . $idAvaliacao . "', CURDATE())");
             
         }
         

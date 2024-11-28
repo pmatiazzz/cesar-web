@@ -11,8 +11,14 @@ session_start();
     </head>
     <body>
         <?php
-        if (isset($_GET['livro'])) {
-            $idLivro = $_GET['livro'];
+        if (isset($_GET['avaliacao'])) {
+            $idAvaliacao = $_GET['avaliacao'];
+            $consulta_avaliacao = mysqli_query($conexao, "SELECT idObra FROM avaliacao WHERE idAvaliacao = " . $idAvaliacao . ";");
+            $avaliacao = mysqli_fetch_assoc($consulta_avaliacao);
+            $consulta_obra = mysqli_query($conexao, "SELECT idApi FROM obra WHERE idObra = " . $avaliacao['idObra'] . ";");
+            $obra = mysqli_fetch_assoc($consulta_obra);
+            
+            $idLivro = $obra['idApi'];
 
             // URL da API com o ID do livro
             $apiUrl = "https://www.googleapis.com/books/v1/volumes/" . urlencode($idLivro);
@@ -66,7 +72,7 @@ session_start();
         }
         ?>
         
-        <form action="/uniBooks/salvarAvaliacao.php/?idLivro=<?php echo $_GET['livro']?> " method="POST">
+        <form action="/uniBooks/editandoAvaliacao.php/?avaliacao=<?php echo $_GET['avaliacao']?> " method="POST">
             <label>Nota:</label>
             <select name="nota">
                 <option value="1">1</option>
@@ -78,5 +84,12 @@ session_start();
             <textarea name="comentario" id="" rows="4" cols="50"></textarea>
             <button type="submit">avaliar</button>
         </form>
+        <?php
+            $consulta_comentario = mysqli_query($conexao, "SELECT * FROM comentario WHERE idAvaliacao = " . $_GET['avaliacao'] . " ORDER BY idComentario DESC;");
+                while ($comentario = mysqli_fetch_assoc($consulta_comentario)){
+                    echo "<p>" . 'comentario: ' . $comentario['comentario'] ."</p>";
+                    echo '<a href="http://localhost/uniBooks/excluir_comentario.php/?comentario=' . $comentario['idComentario'] . '"><button>excluir</button></a>';
+                }
+        ?>
     </body>
 </html>
