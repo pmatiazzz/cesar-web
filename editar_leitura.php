@@ -72,7 +72,7 @@ session_start();
         }
         ?>
         
-        <form action="/uniBooks/salvarLeitura.php/?idLivro=<?php echo $_GET['leitura']?> " method="POST">
+        <form action="/uniBooks/editandoLeitura.php/?leitura=<?php echo $_GET['leitura']?> " method="POST">
             <label>situação:</label>
             <select name="situacao">
                 <option value="esta lendo">Lendo</option>
